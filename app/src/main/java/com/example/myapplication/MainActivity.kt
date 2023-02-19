@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +10,8 @@ import android.widget.ArrayAdapter
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.example.myapplication.PhotoCapture
 import com.example.myapplication.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +23,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         val photoAdapter = PhotoAdapter(this, DataManager.photos.toList())
         binding.photoDisplay.adapter = photoAdapter
+
+        binding.imageButton.setOnClickListener {
+            // start photo taking activity
+            val intent = Intent(this, PhotoCapture::class.java)
+            this.startActivity(intent)
+        }
     }
+
 }
 
 class PhotoAdapter(val _context : Context, var photos : List<photo>) : BaseAdapter() {
@@ -33,17 +43,6 @@ class PhotoAdapter(val _context : Context, var photos : List<photo>) : BaseAdapt
         get() {
             return _context.resources.displayMetrics.widthPixels
         }
-
-    val resources = arrayOf(
-        R.drawable.one,
-        R.drawable.two,
-        R.drawable.three,
-        R.drawable.four,
-        R.drawable.five,
-        R.drawable.six,
-        R.drawable.seven,
-        R.drawable.eight
-    )
     override fun getCount(): Int {
         return photos.count()
     }
@@ -58,13 +57,11 @@ class PhotoAdapter(val _context : Context, var photos : List<photo>) : BaseAdapt
 
     override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
         val photo = photos[p0]
-        val resource = resources[p0]
 
         var image = ImageView(_context)
         image.scaleType = ImageView.ScaleType.CENTER_CROP
         image.layoutParams = ViewGroup.LayoutParams(300, 300)
-        image.setImageResource(resource)
-
+        image.load(photo.path)
 
         return image
     }
