@@ -24,12 +24,25 @@ class MainActivity : AppCompatActivity() {
 }
 
 class PhotoAdapter(val _context : Context, var photos : List<photo>) : BaseAdapter() {
+    val height: Int
+    get() {
+        return _context.resources.displayMetrics.heightPixels
+    }
 
-    val resources = arrayOf(R.drawable.one,
-        R.drawable.two, R.drawable.three,
+    val width: Int
+        get() {
+            return _context.resources.displayMetrics.widthPixels
+        }
+
+    val resources = arrayOf(
+        R.drawable.one,
+        R.drawable.two,
+        R.drawable.three,
         R.drawable.four,
         R.drawable.five,
         R.drawable.six,
+        R.drawable.seven,
+        R.drawable.eight
     )
     override fun getCount(): Int {
         return photos.count()
@@ -48,7 +61,10 @@ class PhotoAdapter(val _context : Context, var photos : List<photo>) : BaseAdapt
         val resource = resources[p0]
 
         var image = ImageView(_context)
+        image.scaleType = ImageView.ScaleType.CENTER_CROP
+        image.layoutParams = ViewGroup.LayoutParams(300, 300)
         image.setImageResource(resource)
+
 
         return image
     }
