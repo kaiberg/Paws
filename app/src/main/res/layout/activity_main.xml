@@ -29,6 +29,7 @@
         android:id="@+id/imageButton"
         android:layout_width="59dp"
         android:layout_height="52dp"
+        android:backgroundTint="#673AB7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
