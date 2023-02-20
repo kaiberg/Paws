@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_last"
+        android:icon="@drawable/baseline_arrow_back_white_24"
+        android:title="Last"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_next"
+        android:icon="@drawable/baseline_arrow_forward_white_24"
+        android:title="Next"
+        app:showAsAction="ifRoom" />
+</menu>

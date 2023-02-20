@@ -29,6 +29,12 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, PhotoCapture::class.java)
             this.startActivity(intent)
         }
+
+        binding.photoDisplay.setOnItemClickListener{ parent, view, position, id ->
+            val intent = Intent(this, PhotoView::class.java)
+            intent.putExtra(EXTRA_PHOTO_POSITION, position)
+            this.startActivity(intent)
+        }
     }
 
 }
