@@ -2,74 +2,51 @@ package com.example.myapplication
 
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.content.res.Configuration
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.BaseAdapter
-import android.widget.ImageView
-import androidx.recyclerview.widget.RecyclerView
-import coil.load
-import com.example.myapplication.PhotoCapture
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.myapplication.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    private lateinit var layoutManager: GridLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val photoAdapter = PhotoAdapter(this, DataManager.photos.toList())
-        binding.photoDisplay.adapter = photoAdapter
-
-        binding.imageButton.setOnClickListener {
-            // start photo taking activity
-            val intent = Intent(this, PhotoCapture::class.java)
-            this.startActivity(intent)
-        }
-
-        binding.photoDisplay.setOnItemClickListener{ parent, view, position, id ->
+        val photoAdapter = PhotoAdapter(DataManager.photos)
+        photoAdapter.onItemClick = { photo, position ->
             val intent = Intent(this, PhotoView::class.java)
             intent.putExtra(EXTRA_PHOTO_POSITION, position)
             this.startActivity(intent)
         }
-    }
+        binding.photoDisplay.adapter = photoAdapter
+        layoutManager = GridLayoutManager(this, calculateNoOfColumns(this, 100.toFloat()))
+        binding.photoDisplay.layoutManager = layoutManager
 
-}
 
-class PhotoAdapter(val _context : Context, var photos : List<photo>) : BaseAdapter() {
-    val height: Int
-    get() {
-        return _context.resources.displayMetrics.heightPixels
-    }
-
-    val width: Int
-        get() {
-            return _context.resources.displayMetrics.widthPixels
+        binding.addButton.setOnClickListener {
+            // start photo taking activity
+           val intent = Intent(this, PhotoCapture::class.java)
+            this.startActivity(intent)
         }
-    override fun getCount(): Int {
-        return photos.count()
     }
 
-    override fun getItem(p0: Int): Any {
-        return photos[p0]
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        layoutManager.spanCount = calculateNoOfColumns(this, 100.toFloat())
+        super.onConfigurationChanged(newConfig)
     }
 
-    override fun getItemId(p0: Int): Long {
-        return p0.toLong()
-    }
-
-    override fun getView(p0: Int, p1: View?, p2: ViewGroup?): View {
-        val photo = photos[p0]
-
-        var image = ImageView(_context)
-        image.scaleType = ImageView.ScaleType.CENTER_CROP
-        image.layoutParams = ViewGroup.LayoutParams(300, 300)
-        image.load(photo.path)
-
-        return image
+    fun calculateNoOfColumns(
+        context: Context,
+        columnWidthDp: Float
+    ): Int {
+        val displayMetrics = context.resources.displayMetrics
+        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
+        return (screenWidthDp / columnWidthDp + 0.5).toInt()
     }
 
 }

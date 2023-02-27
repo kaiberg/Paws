@@ -1,5 +1,12 @@
 package com.example.myapplication
 
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
+import coil.load
+
 data class photo(val path: String) {}
 
 object DataManager {
@@ -8,20 +15,6 @@ object DataManager {
     init{
         SeedData()
     }
-
-/*    private fun SeedData() {
-        val drawablePath: String = "drawable://"
-        photos = arrayListOf(
-            photo(drawablePath + R.drawable.one),
-            photo(drawablePath + R.drawable.two),
-            photo(drawablePath + R.drawable.three),
-            photo(drawablePath + R.drawable.four),
-            photo(drawablePath + R.drawable.five),
-            photo(drawablePath + R.drawable.six),
-            photo(drawablePath + R.drawable.seven),
-            photo(drawablePath + R.drawable.eight),
-        )
-    }*/
 
     private fun SeedData() {
         photos = arrayListOf(
@@ -77,4 +70,35 @@ object DataManager {
             photo("https://images.dog.ceo/breeds/terrier-patterdale/Patterdale.jpg")
         )
     }
+}
+
+class PhotoAdapter(val photos: ArrayList<photo>) : RecyclerView.Adapter<PhotoAdapter.PhotoHolder>() {
+    var onItemClick: ((photo, position : Int) -> Unit)? = null
+    inner class PhotoHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var currentPosition: Int = -1
+        var currentPhoto: photo? = null
+        var imageView: ImageView = itemView.findViewById(R.id.imvPhoto)
+
+        fun setPhoto(position: Int) {
+            this.currentPosition = position
+            this.currentPhoto = photos[position]
+
+            imageView.load(this.currentPhoto!!.path)
+
+          imageView.setOnClickListener {
+              onItemClick?.invoke(this.currentPhoto!!, this.currentPosition)
+          }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoAdapter.PhotoHolder {
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.photo_list_item, parent, false)
+        return PhotoHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: PhotoAdapter.PhotoHolder, position: Int) {
+        holder.setPhoto(position)
+    }
+
+    override fun getItemCount(): Int = photos.size
 }
