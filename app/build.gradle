@@ -37,6 +37,9 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+
 
     // take photos
     def camerax_version = "1.1.0-beta01"
@@ -51,6 +54,11 @@ dependencies {
 
     // photos on the internet
     implementation "io.coil-kt:coil:1.1.1"
+
+    // support for fragments
+    def fragment_version = "1.5.5"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
