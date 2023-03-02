@@ -59,6 +59,10 @@ dependencies {
     def fragment_version = "1.5.5"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
+    // networking
+    implementation 'com.squareup.moshi:moshi-kotlin:1.13.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.9.0'
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'

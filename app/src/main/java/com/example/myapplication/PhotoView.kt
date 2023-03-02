@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
-import android.widget.ImageView
 import coil.load
-import coil.request.CachePolicy
 import com.example.myapplication.databinding.ActivityPhotoViewBinding
 
 const val EXTRA_PHOTO_POSITION = "EXTRA_PHOTO_POSITION"
@@ -70,7 +67,7 @@ class PhotoView : AppCompatActivity() {
     }
 
     private fun isInRange(index: Int) : Boolean {
-        val size = DataManager.photos.size
+        val size = DataManager.photos.value?.size ?: return false
         return (index in 0 until size)
     }
 
@@ -83,7 +80,7 @@ class PhotoView : AppCompatActivity() {
         if(!isInRange(index))
             return
 
-        val photo = DataManager.photos[index]
+        val photo = DataManager.photos.value!![index]
         val image = binding.imageView
 
         image.load(photo.path)
