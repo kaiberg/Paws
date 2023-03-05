@@ -1,42 +1,47 @@
 package com.example.myapplication
 
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
+import android.view.*
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import coil.load
-import com.example.myapplication.databinding.ActivityPhotoViewBinding
+import com.example.myapplication.databinding.FragmentPhotoViewBinding
 
-const val EXTRA_PHOTO_POSITION = "EXTRA_PHOTO_POSITION"
-
-class PhotoView : AppCompatActivity() {
-    private lateinit var binding: ActivityPhotoViewBinding
+class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
+    private var _binding : FragmentPhotoViewBinding? = null
+    private val binding
+        get() = _binding!!
+    private val args: PhotoViewFragmentArgs by navArgs()
     private var item_position: Int = 0
     set(value) {
         if(isInRange(value)) {
             field = value
             showImage(field)
-            invalidateOptionsMenu()
+/*
+            invalidateOptionsMenu(Activity())
+*/
         }
 
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityPhotoViewBinding.inflate(layoutInflater)
-        setContentView(binding.root)
 
-        item_position = intent.getIntExtra(EXTRA_PHOTO_POSITION, 0)
-        showImage(item_position)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentPhotoViewBinding.inflate(inflater, container, false)
+
+        item_position = args.position
+        return binding.root
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+/*    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.photo_menu, menu)
         return true
-    }
+    }*/
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+/*    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         if(!isInRange(item_position+1)) {
             val menuItem = menu?.findItem(R.id.action_next)
             if(menuItem != null)
@@ -50,7 +55,7 @@ class PhotoView : AppCompatActivity() {
         }
 
         return super.onPrepareOptionsMenu(menu)
-    }
+    }*/
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId) {
@@ -73,7 +78,9 @@ class PhotoView : AppCompatActivity() {
 
     private fun disableMenuItem(item: MenuItem) {
         item.isEnabled = false
+/*
         item.icon = getDrawable(R.drawable.baseline_block_white_24)
+*/
     }
 
     private fun showImage(index: Int) {
