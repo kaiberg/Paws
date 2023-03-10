@@ -11,4 +11,5 @@
         android:contentDescription="image"
         android:scaleType="centerCrop"
         app:srcCompat="@drawable/eight" />
+
 </LinearLayout>
