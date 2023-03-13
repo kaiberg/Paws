@@ -5,19 +5,19 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/photoGalleryFragment">
 
-    <activity
-        android:id="@+id/photoCapture"
-        android:name="com.example.myapplication.PhotoCapture"
-        android:label="activity_photo_capture"
-        tools:layout="@layout/activity_photo_capture" />
     <fragment
         android:id="@+id/photoCreateFragment"
         android:name="com.example.myapplication.PhotoCreateFragment"
         android:label="fragment_photo_create"
         tools:layout="@layout/fragment_photo_create" >
         <action
+            android:id="@+id/action_photoCreateFragment_to_photoGalleryFragment"
+            app:destination="@id/photoGalleryFragment" />
+        <action
             android:id="@+id/action_photoCreateFragment_to_photoCapture"
             app:destination="@id/photoCapture" />
+        <argument
+            android:name="imageUri" />
     </fragment>
     <fragment
         android:id="@+id/photoGalleryFragment"
@@ -25,14 +25,14 @@
         android:label="fragment_photo_gallery"
         tools:layout="@layout/fragment_photo_gallery" >
         <action
-            android:id="@+id/action_photoGalleryFragment_to_photoCreateFragment"
-            app:destination="@id/photoCreateFragment" />
-        <action
             android:id="@+id/action_photoGalleryFragment_to_photoView"
             app:destination="@id/photoViewFragment" />
         <action
             android:id="@+id/action_photoGalleryFragment_to_photoViewFragment"
             app:destination="@id/photoViewFragment" />
+        <action
+            android:id="@+id/action_photoGalleryFragment_to_photoCapture"
+            app:destination="@id/photoCapture" />
     </fragment>
     <fragment
         android:id="@+id/photoViewFragment"
@@ -42,5 +42,17 @@
         <argument
             android:name="position"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoCapture"
+        android:name="com.example.myapplication.PhotoCaptureFragment"
+        android:label="fragment_photo_capture"
+        tools:layout="@layout/fragment_photo_capture" >
+        <action
+            android:id="@+id/action_photoCapture_to_photoCreateFragment"
+            app:destination="@id/photoCreateFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/photoGalleryFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>
