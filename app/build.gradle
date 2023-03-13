@@ -35,6 +35,19 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    testOptions {
+        unitTests.all {
+
+            // Always run tests, even when nothing changed.
+            dependsOn 'clean'
+
+            // Show test results.
+            testLogging {
+                events "passed", "skipped", "failed"
+            }
+        }
+    }
 }
 
 dependencies {
@@ -42,6 +55,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
     androidTestImplementation 'org.junit.jupiter:junit-jupiter'
     androidTestImplementation 'org.jetbrains.kotlin:kotlin-test'
+
+    androidTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
 
     // take photos
     def camerax_version = "1.1.0-beta01"
@@ -74,8 +90,4 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-}
-
-tasks.withType(Test) {
-    useJUnitPlatform()
 }
