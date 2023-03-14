@@ -53,6 +53,6 @@
             app:destination="@id/photoCreateFragment"
             app:launchSingleTop="false"
             app:popUpTo="@id/photoGalleryFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>
