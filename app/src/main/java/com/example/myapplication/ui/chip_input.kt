@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui
 
 import android.content.Context
 import android.text.Editable
@@ -7,15 +7,32 @@ import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.databinding.BindingAdapter
+import com.example.myapplication.R
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputLayout
+
+@BindingAdapter("chips")
+fun setTags(tagInputView: TagInputView, tags: List<String>?) {
+    tags?.let {
+        // Clear existing chips
+        tagInputView.chipGroup.removeAllViews()
+
+        // Add new chips
+        for (tag in it) {
+            tagInputView.addNewChip(tag)
+        }
+    }
+}
 
 class TagInputView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
 ) : ConstraintLayout(context, attrs) {
 
     val chipGroup: ChipGroup
+    var onChipAdded: ((chipText: String) -> Unit)? = null
+
 
     init {
         LayoutInflater.from(context).inflate(R.layout.input_chip_view, this, true)
@@ -60,7 +77,7 @@ class TagInputView @JvmOverloads constructor(
         })
     }
 
-    private fun addNewChip(text: String) {
+    fun addNewChip(text: String) {
         val newChip = LayoutInflater.from(context).inflate(R.layout.input_chip_item, chipGroup, false)
         val bind = newChip.findViewById<Chip>(R.id.chip)
         bind.text = text
@@ -68,5 +85,9 @@ class TagInputView @JvmOverloads constructor(
             chipGroup.removeView(newChip)
         }
         chipGroup.addView(newChip)
+
+        onChipAdded?.invoke(text)
     }
+
+
 }

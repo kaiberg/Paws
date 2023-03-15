@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui
 
 import android.Manifest
 import android.content.ContentValues
@@ -25,6 +25,7 @@ import android.view.ViewGroup
 import androidx.camera.core.ImageCaptureException
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentPhotoCaptureBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -57,7 +58,8 @@ class PhotoCaptureFragment: Fragment(R.layout.fragment_photo_capture) {
             startCamera()
         } else {
             ActivityCompat.requestPermissions(
-                requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
+                requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS
+            )
         }
 
         // Set up the listeners for take photo and video capture buttons
@@ -109,7 +111,8 @@ class PhotoCaptureFragment: Fragment(R.layout.fragment_photo_capture) {
                     val path = output.savedUri.toString()
 
                     Log.d(TAG, path)
-                    val action = PhotoCaptureFragmentDirections.actionPhotoCaptureToPhotoCreateFragment(path)
+                    val action =
+                        PhotoCaptureFragmentDirections.actionPhotoCaptureToPhotoCreateFragment(path)
                     findNavController().navigate(action)
                 }
             }

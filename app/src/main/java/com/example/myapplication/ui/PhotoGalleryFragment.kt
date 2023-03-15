@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui
 
 import android.content.Context
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentPhotoGalleryBinding
 
 class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery){
@@ -32,7 +32,8 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery){
 
         adapter = Photo2Adapter(DataManager.photos2.value!!)
         adapter.onItemClick = { photo, position ->
-            val action = PhotoGalleryFragmentDirections.actionPhotoGalleryFragmentToPhotoView(position)
+            val action =
+                PhotoGalleryFragmentDirections.actionPhotoGalleryFragmentToPhotoView(position)
             findNavController().navigate(action)
         }
         binding.photoDisplay.adapter = adapter

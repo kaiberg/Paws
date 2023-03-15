@@ -1,4 +1,4 @@
-package com.example.myapplication.network
+package com.example.myapplication.Data.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory

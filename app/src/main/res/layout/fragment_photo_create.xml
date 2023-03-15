@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.myapplication.ui.viewmodels.PhotoCreateViewModel" />
+    </data>
+<androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PhotoCreateFragment">
+    tools:context=".ui.PhotoCreateFragment">
+
+
+
 
     <ImageView
         android:id="@+id/selectedImage"
@@ -16,7 +25,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/two" />
+        app:imageUrl="@{viewModel.photoURL}"/>
 
     <Button
         android:id="@+id/changeButton"
@@ -73,19 +82,23 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="description" />
+                    android:hint="description"
+                    android:text="@={viewModel.description}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.example.myapplication.TagInputView
-                android:id="@+id/keywords"
+            <com.example.myapplication.ui.TagInputView
+                android:id="@+id/tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="20dp"
-                android:hint="Keywords" />
+                android:hint="tags"
+                app:chips="@{viewModel.tags}"/>
+
         </LinearLayout>
     </ScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

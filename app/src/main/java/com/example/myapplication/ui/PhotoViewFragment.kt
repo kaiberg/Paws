@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.ui
 
 import android.os.Bundle
 import android.view.*
@@ -6,6 +6,7 @@ import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentPhotoViewBinding
 import com.google.android.material.chip.Chip
 

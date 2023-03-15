@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/photoCreateFragment"
-        android:name="com.example.myapplication.PhotoCreateFragment"
+        android:name="com.example.myapplication.ui.PhotoCreateFragment"
         android:label="fragment_photo_create"
         tools:layout="@layout/fragment_photo_create" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/photoGalleryFragment"
-        android:name="com.example.myapplication.PhotoGalleryFragment"
+        android:name="com.example.myapplication.ui.PhotoGalleryFragment"
         android:label="fragment_photo_gallery"
         tools:layout="@layout/fragment_photo_gallery" >
         <action
@@ -36,7 +36,7 @@
     </fragment>
     <fragment
         android:id="@+id/photoViewFragment"
-        android:name="com.example.myapplication.PhotoViewFragment"
+        android:name="com.example.myapplication.ui.PhotoViewFragment"
         android:label="fragment_photo_view"
         tools:layout="@layout/fragment_photo_view" >
         <argument
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/photoCapture"
-        android:name="com.example.myapplication.PhotoCaptureFragment"
+        android:name="com.example.myapplication.ui.PhotoCaptureFragment"
         android:label="fragment_photo_capture"
         tools:layout="@layout/fragment_photo_capture" >
         <action
