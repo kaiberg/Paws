@@ -15,16 +15,19 @@ import com.google.android.material.textfield.TextInputLayout
 
 @BindingAdapter("chips")
 fun setTags(tagInputView: TagInputView, tags: List<String>?) {
-    tags?.let {
         // Clear existing chips
         tagInputView.chipGroup.removeAllViews()
 
         // Add new chips
-        for (tag in it) {
+   val copy = ArrayList(tags)
+
+    if (tags != null) {
+        for (tag in copy) {
             tagInputView.addNewChip(tag)
         }
     }
-}
+    }
+
 
 class TagInputView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null

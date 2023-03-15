@@ -33,7 +33,7 @@ class PhotoCreateFragment : Fragment(R.layout.fragment_photo_create) {
         get() = _binding!!
     private val args: PhotoCreateFragmentArgs by navArgs()
 
-    val viewModel: PhotoCreateViewModel by viewModels()
+    val viewModel: PhotoCreateViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -42,6 +42,8 @@ class PhotoCreateFragment : Fragment(R.layout.fragment_photo_create) {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPhotoCreateBinding.inflate(inflater, container, false)
+
+        binding.viewModel = viewModel
 
         viewModel.photoURL = args.imageUri
         loadImage(binding.selectedImage, args.imageUri)
