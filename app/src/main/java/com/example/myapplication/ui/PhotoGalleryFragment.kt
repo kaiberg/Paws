@@ -2,21 +2,26 @@ package com.example.myapplication.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentPhotoGalleryBinding
+import com.example.myapplication.ui.viewmodels.PhotoGalleryViewModel
 
 class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery){
     private var _binding : FragmentPhotoGalleryBinding? = null
     private val binding
     get() = _binding!!
 
-    private lateinit var adapter: Photo2Adapter
+    private val viewModel: PhotoGalleryViewModel by activityViewModels()
+    private lateinit var adapter: PhotoAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +35,7 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = Photo2Adapter(DataManager.photos2.value!!)
+        adapter = PhotoAdapter(emptyList())
         adapter.onItemClick = { photo, position ->
             val action =
                 PhotoGalleryFragmentDirections.actionPhotoGalleryFragmentToPhotoView(position)
@@ -46,9 +51,10 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery){
             findNavController().navigate(action)
         }
 
-        DataManager.photos2.observe(viewLifecycleOwner) {
+        viewModel.photos.observe(viewLifecycleOwner) {
             adapter.photos = it
             adapter.notifyDataSetChanged()
+            d("observable" ,"updated adapter to size:${it.size}")
         }
 
         /*binding.searchView.setupWithSearchBar(binding.searchBar)*/

@@ -2,6 +2,8 @@ package com.example.myapplication.ui.viewmodels
 
 import android.util.Log.d
 import androidx.lifecycle.ViewModel
+import com.example.myapplication.ui.DataManager
+import com.example.myapplication.ui.photo
 
 class PhotoCreateViewModel : ViewModel() {
     init {
@@ -9,9 +11,9 @@ class PhotoCreateViewModel : ViewModel() {
     }
 
     fun createPhoto() {
-/*
-        DataManager.photos2.add(photo2(description,photoURL, tags))
-*/
+        DataManager.photos.add(photo(description,tags, photoURL))
+        d("photoInit", "${description}, ${tags}")
+
         description = ""
         photoURL = ""
         tags = arrayListOf()

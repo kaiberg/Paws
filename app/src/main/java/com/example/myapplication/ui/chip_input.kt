@@ -23,7 +23,7 @@ fun setTags(tagInputView: TagInputView, tags: List<String>?) {
 
     if (tags != null) {
         for (tag in copy) {
-            tagInputView.addNewChip(tag)
+            tagInputView.addNewChip(tag, false)
         }
     }
     }
@@ -73,14 +73,14 @@ class TagInputView @JvmOverloads constructor(
             override fun afterTextChanged(editable: Editable) {
                 val text = editable.toString()
                 if (text.isNotEmpty() && text.endsWith("\n")) {
-                    addNewChip(text.removeSuffix("\n").filter { it.isLetterOrDigit() })
+                    addNewChip(text.removeSuffix("\n").filter { it.isLetterOrDigit() }, true)
                     inputLayout.editText!!.setText("")
                 }
             }
         })
     }
 
-    fun addNewChip(text: String) {
+    fun addNewChip(text: String, notify: Boolean) {
         val newChip = LayoutInflater.from(context).inflate(R.layout.input_chip_item, chipGroup, false)
         val bind = newChip.findViewById<Chip>(R.id.chip)
         bind.text = text
@@ -89,7 +89,9 @@ class TagInputView @JvmOverloads constructor(
         }
         chipGroup.addView(newChip)
 
-        onChipAdded?.invoke(text)
+        if(notify) {
+            onChipAdded?.invoke(text)
+        }
     }
 
 

@@ -4,10 +4,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentPhotoViewBinding
+import com.example.myapplication.ui.viewmodels.PhotoGalleryViewModel
 import com.google.android.material.chip.Chip
 
 class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
@@ -15,7 +17,8 @@ class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
     private val binding
         get() = _binding!!
     private val args: PhotoViewFragmentArgs by navArgs()
-    private lateinit var photo: photo2
+    private val viewModel: PhotoGalleryViewModel by activityViewModels()
+    private lateinit var photo: photo
     private var position: Int = 0
         set(value) {
             if (isInRange(value)) {
@@ -75,7 +78,7 @@ class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
     }
 
     private fun isInRange(index: Int): Boolean {
-        val size = DataManager.photos2.value?.size ?: return false
+        val size = viewModel.photos.value?.size ?: return false
         return (index in 0 until size)
     }
 
@@ -93,7 +96,7 @@ class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
         if (!isInRange(index))
             return
 
-        photo = DataManager.photos2.value!![index]
+        photo = viewModel.photos.value!![index]
         binding.imageView.load(photo.path)
         binding.description.text = photo.description
         binding.keywordsList.removeAllViews()
