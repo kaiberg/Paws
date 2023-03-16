@@ -1,19 +1,22 @@
 package com.example.myapplication.ui
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log.d
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.databinding.FragmentPhotoGalleryBinding
 import com.example.myapplication.ui.viewmodels.PhotoGalleryViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+
+@AndroidEntryPoint
 class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery){
     private var _binding : FragmentPhotoGalleryBinding? = null
     private val binding
@@ -51,23 +54,16 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery){
             findNavController().navigate(action)
         }
 
-        viewModel.photos.observe(viewLifecycleOwner) {
-            adapter.photos = it
-            adapter.notifyDataSetChanged()
-            d("observable" ,"updated adapter to size:${it.size}")
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.photos.collect {
+                adapter.photos = it
+                adapter.notifyDataSetChanged()
+
+            }
         }
 
         /*binding.searchView.setupWithSearchBar(binding.searchBar)*/
-
-    }
-
-    fun calculateNoOfColumns(
-        context: Context,
-        columnWidthDp: Float
-    ): Int {
-        val displayMetrics = context.resources.displayMetrics
-        val screenWidthDp = displayMetrics.widthPixels / displayMetrics.density
-        return (screenWidthDp / columnWidthDp + 0.5).toInt()
     }
 
     override fun onDestroy() {

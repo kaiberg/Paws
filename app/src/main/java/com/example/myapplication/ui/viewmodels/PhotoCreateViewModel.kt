@@ -1,18 +1,15 @@
 package com.example.myapplication.ui.viewmodels
 
-import android.util.Log.d
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.ui.DataManager
+import com.example.myapplication.ui.PhotoRepository
 import com.example.myapplication.ui.photo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class PhotoCreateViewModel : ViewModel() {
-    init {
-        d("photoInit", "NEW VM created")
-    }
-
+@HiltViewModel
+class PhotoCreateViewModel @Inject constructor(private val repository: PhotoRepository) : ViewModel() {
     fun createPhoto() {
-        DataManager.photos.add(photo(description,tags, photoURL))
-        d("photoInit", "${description}, ${tags}")
+        repository.add(photo(photoURL,tags, description))
 
         description = ""
         photoURL = ""

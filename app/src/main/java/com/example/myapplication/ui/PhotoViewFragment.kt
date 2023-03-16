@@ -78,7 +78,7 @@ class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
     }
 
     private fun isInRange(index: Int): Boolean {
-        val size = viewModel.photos.value?.size ?: return false
+        val size = viewModel.photos.value.size
         return (index in 0 until size)
     }
 
@@ -96,12 +96,12 @@ class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
         if (!isInRange(index))
             return
 
-        photo = viewModel.photos.value!![index]
+        photo = viewModel.photos.value[index]
         binding.imageView.load(photo.path)
         binding.description.text = photo.description
         binding.keywordsList.removeAllViews()
 
-        for (keyword in photo.keyWords) {
+        for (keyword in photo.tags) {
             val chip = LayoutInflater.from(requireContext()).inflate(R.layout.view_chip_item, binding.keywordsList, false)
             val chipBind = chip.findViewById<Chip>(R.id.displayChip)
             chipBind.text = keyword

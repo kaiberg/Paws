@@ -1,33 +1,41 @@
 package com.example.myapplication.ui.viewmodels
 
-import android.provider.ContactsContract.Contacts.Photo
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.myapplication.ui.DataManager
+import androidx.lifecycle.*
+import com.example.myapplication.ui.PhotoRepository
 import com.example.myapplication.ui.photo
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PhotoGalleryViewModel : ViewModel() {
-    var photos: MutableLiveData<List<photo>> = MutableLiveData()
+@HiltViewModel
+class PhotoGalleryViewModel @Inject constructor(private val repository: PhotoRepository) : ViewModel() {
+
+    private val _photos: MutableStateFlow<List<photo>> = MutableStateFlow(emptyList())
+    val photos: StateFlow<List<photo>> = _photos.asStateFlow()
+
+    var descriptionFilter: String = ""
+    var tagsFilter: List<String> = emptyList()
 
     init {
-        viewModelScope.launch {        DataManager.SeedData()
+        viewModelScope.launch {
+            repository.getPhotos().collect { photos ->
+                val filteredPhotos = filterPhotos(photos)
+                _photos.value = filteredPhotos
+            }
         }
-
-        DataManager.onChangeListener = {search()}
     }
 
-    fun search(descriptionFilter : String = "",
-               tagsFilter: Array<String> = emptyArray()) {
-        if(DataManager.photos.isEmpty())
-            return
-        val result = DataManager.photos.filter {
-            it.description.uppercase().contains(descriptionFilter.uppercase()) &&
-                    it.keyWords.containsAll(tagsFilter.toList())
-        }
+    fun search() {
+        val allPhotos = _photos.value
+        val filteredPhotos = filterPhotos(allPhotos)
+        _photos.value = filteredPhotos
+    }
 
-        photos.value = result
+    private fun filterPhotos(photos: List<photo>): List<photo> {
+        return photos.filter {
+            it.description.uppercase().contains(descriptionFilter.uppercase()) &&
+                    it.tags.containsAll(tagsFilter)
+        }
     }
 }
