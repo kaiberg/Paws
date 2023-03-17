@@ -1,4 +1,4 @@
-package com.example.myapplication.ui
+package com.example.myapplication.ui.photoCreate
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,7 +12,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.myapplication.R
-import com.example.myapplication.ui.viewmodels.PhotoCreateViewModel
 import com.example.myapplication.databinding.FragmentPhotoCreateBinding
 import dagger.hilt.android.AndroidEntryPoint
 

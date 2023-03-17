@@ -1,4 +1,4 @@
-package com.example.myapplication.ui
+package com.example.myapplication.ui.chipInput
 
 import android.content.Context
 import android.text.Editable

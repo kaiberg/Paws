@@ -1,4 +1,4 @@
-package com.example.myapplication.ui
+package com.example.myapplication.ui.photoCapture
 
 import android.Manifest
 import android.content.ContentValues
@@ -7,9 +7,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import androidx.camera.core.ImageCapture
-import androidx.camera.video.Recorder
-import androidx.camera.video.Recording
-import androidx.camera.video.VideoCapture
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import java.util.concurrent.ExecutorService
@@ -30,17 +27,12 @@ import com.example.myapplication.databinding.FragmentPhotoCaptureBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-typealias LumaListener = (luma: Double) -> Unit
-
 class PhotoCaptureFragment: Fragment(R.layout.fragment_photo_capture) {
     private lateinit var _binding: FragmentPhotoCaptureBinding
     private val binding
-        get() = _binding!!
+        get() = _binding
 
     private var imageCapture: ImageCapture? = null
-
-    private var videoCapture: VideoCapture<Recorder>? = null
-    private var recording: Recording? = null
 
     private lateinit var cameraExecutor: ExecutorService
 
@@ -64,7 +56,6 @@ class PhotoCaptureFragment: Fragment(R.layout.fragment_photo_capture) {
 
         // Set up the listeners for take photo and video capture buttons
         this.binding.imageCaptureButton.setOnClickListener { takePhoto() }
-        this.binding.videoCaptureButton.setOnClickListener { captureVideo() }
 
         cameraExecutor = Executors.newSingleThreadExecutor()
         return binding.root
@@ -118,9 +109,6 @@ class PhotoCaptureFragment: Fragment(R.layout.fragment_photo_capture) {
             }
         )
     }
-
-
-    private fun captureVideo() {}
 
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
@@ -177,7 +165,6 @@ class PhotoCaptureFragment: Fragment(R.layout.fragment_photo_capture) {
             }
         }
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

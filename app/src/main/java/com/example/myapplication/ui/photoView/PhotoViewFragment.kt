@@ -1,4 +1,4 @@
-package com.example.myapplication.ui
+package com.example.myapplication.ui.photoView
 
 import android.os.Bundle
 import android.view.*
@@ -8,8 +8,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.example.myapplication.R
+import com.example.myapplication.data.model.Photo
 import com.example.myapplication.databinding.FragmentPhotoViewBinding
-import com.example.myapplication.ui.viewmodels.PhotoGalleryViewModel
+import com.example.myapplication.ui.photoGallery.PhotoGalleryViewModel
 import com.google.android.material.chip.Chip
 
 class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
@@ -18,7 +19,7 @@ class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
         get() = _binding!!
     private val args: PhotoViewFragmentArgs by navArgs()
     private val viewModel: PhotoGalleryViewModel by activityViewModels()
-    private lateinit var photo: photo
+    private lateinit var photo: Photo
     private var position: Int = 0
         set(value) {
             if (isInRange(value)) {
