@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.myapplication'
+    namespace 'com.paws.photoapplication'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.myapplication"
+        applicationId "com.paws.photoapplication"
         minSdk 33
         targetSdk 33
         versionCode 1

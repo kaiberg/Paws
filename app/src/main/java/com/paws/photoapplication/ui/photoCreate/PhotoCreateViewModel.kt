@@ -1,8 +1,8 @@
-package com.example.myapplication.ui.photoCreate
+package com.paws.photoapplication.ui.photoCreate
 
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.data.model.Photo
-import com.example.myapplication.data.repository.PhotoRepository
+import com.paws.photoapplication.data.model.Photo
+import com.paws.photoapplication.data.repository.PhotoRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

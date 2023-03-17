@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.photoGallery
+package com.paws.photoapplication.ui.photoGallery
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.example.myapplication.R
-import com.example.myapplication.data.model.Photo
+import com.paws.photoapplication.R
+import com.paws.photoapplication.data.model.Photo
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 

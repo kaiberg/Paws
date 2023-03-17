@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.chipInput
+package com.paws.photoapplication.ui.chipInput
 
 import android.content.Context
 import android.text.Editable
@@ -8,7 +8,7 @@ import android.view.KeyEvent
 import android.view.LayoutInflater
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
-import com.example.myapplication.R
+import com.paws.photoapplication.R
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputLayout

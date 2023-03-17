@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.photoView
+package com.paws.photoapplication.ui.photoView
 
 import android.os.Bundle
 import android.view.*
@@ -7,10 +7,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.example.myapplication.R
-import com.example.myapplication.data.model.Photo
-import com.example.myapplication.databinding.FragmentPhotoViewBinding
-import com.example.myapplication.ui.photoGallery.PhotoGalleryViewModel
+import com.paws.photoapplication.R
+import com.paws.photoapplication.data.model.Photo
+import com.paws.photoapplication.databinding.FragmentPhotoViewBinding
+import com.paws.photoapplication.ui.photoGallery.PhotoGalleryViewModel
 import com.google.android.material.chip.Chip
 
 class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {

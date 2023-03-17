@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.photoCapture
+package com.paws.photoapplication.ui.photoCapture
 
 import android.Manifest
 import android.content.ContentValues
@@ -22,8 +22,8 @@ import android.view.ViewGroup
 import androidx.camera.core.ImageCaptureException
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentPhotoCaptureBinding
+import com.paws.photoapplication.R
+import com.paws.photoapplication.databinding.FragmentPhotoCaptureBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 

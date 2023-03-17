@@ -1,4 +1,4 @@
-package com.example.myapplication.data.network
+package com.paws.photoapplication.data.network
 
 import retrofit2.http.GET
 import retrofit2.http.Path

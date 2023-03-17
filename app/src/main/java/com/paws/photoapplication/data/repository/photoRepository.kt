@@ -1,7 +1,7 @@
-package com.example.myapplication.data.repository
+package com.paws.photoapplication.data.repository
 
-import com.example.myapplication.data.model.Photo
-import com.example.myapplication.data.network.DogApiService
+import com.paws.photoapplication.data.model.Photo
+import com.paws.photoapplication.data.network.DogApiService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

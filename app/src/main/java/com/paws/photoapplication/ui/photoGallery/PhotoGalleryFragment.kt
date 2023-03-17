@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.photoGallery
+package com.paws.photoapplication.ui.photoGallery
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentPhotoGalleryBinding
+import com.paws.photoapplication.R
+import com.paws.photoapplication.databinding.FragmentPhotoGalleryBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

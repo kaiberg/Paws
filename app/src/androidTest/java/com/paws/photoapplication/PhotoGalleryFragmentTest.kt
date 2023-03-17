@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.com.paws.photoapplicationlication
 
 import org.junit.jupiter.api.Assertions.*
 

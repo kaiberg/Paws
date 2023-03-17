@@ -1,4 +1,4 @@
-package com.example.myapplication.data.network
+package com.paws.photoapplication.data.network
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

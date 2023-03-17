@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.myapplication.ui.photoCreate.PhotoCreateViewModel" />
+            type="com.paws.photoapplication.ui.photoCreate.PhotoCreateViewModel" />
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                     android:text="@={viewModel.description}"/>
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.example.myapplication.ui.chipInput.TagInputView
+            <com.paws.photoapplication.ui.chipInput.TagInputView
                 android:id="@+id/tags"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

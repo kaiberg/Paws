@@ -1,4 +1,4 @@
-package com.example.myapplication.ui.photoCreate
+package com.paws.photoapplication.ui.photoCreate
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.example.myapplication.R
-import com.example.myapplication.databinding.FragmentPhotoCreateBinding
+import com.paws.photoapplication.R
+import com.paws.photoapplication.databinding.FragmentPhotoCreateBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @BindingAdapter("imageUrl")

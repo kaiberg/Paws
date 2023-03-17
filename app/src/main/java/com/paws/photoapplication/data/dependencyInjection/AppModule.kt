@@ -1,9 +1,9 @@
-package com.example.myapplication.data.dependencyInjection
+package com.paws.photoapplication.data.dependencyInjection
 
-import com.example.myapplication.data.network.BASE_URL
-import com.example.myapplication.data.network.DogApiService
-import com.example.myapplication.data.repository.DogCEOPhotoRepository
-import com.example.myapplication.data.repository.PhotoRepository
+import com.paws.photoapplication.data.network.BASE_URL
+import com.paws.photoapplication.data.network.DogApiService
+import com.paws.photoapplication.data.repository.DogCEOPhotoRepository
+import com.paws.photoapplication.data.repository.PhotoRepository
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
