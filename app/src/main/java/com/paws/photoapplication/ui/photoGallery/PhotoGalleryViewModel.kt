@@ -27,9 +27,12 @@ class PhotoGalleryViewModel @Inject constructor(private val repository: PhotoRep
     }
 
     fun search() {
-        val allPhotos = _photos.value
-        val filteredPhotos = filterPhotos(allPhotos)
-        _photos.value = filteredPhotos
+        viewModelScope.launch {
+            val allPhotos = repository.getPhotos().collect() {
+                val filteredPhotos = filterPhotos(it)
+                _photos.value = filteredPhotos
+            }
+        }
     }
 
     private fun filterPhotos(photos: List<Photo>): List<Photo> {
