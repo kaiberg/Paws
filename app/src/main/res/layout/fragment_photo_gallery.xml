@@ -27,10 +27,8 @@
         android:background="@drawable/baseline_add_white_24"
         android:clickable="true"
         android:contentDescription="capture new photo"
-        app:backgroundTint="#673AB7"
         app:backgroundTintMode="add"
         app:layout_anchorGravity="bottom|end"
-        app:rippleColor="#FFFFFF"
         app:srcCompat="@drawable/baseline_add_white_24" />
 
     <com.google.android.material.appbar.AppBarLayout
