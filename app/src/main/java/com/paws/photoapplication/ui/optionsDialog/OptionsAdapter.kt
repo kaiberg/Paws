@@ -4,14 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.paws.photoapplication.R
+import com.paws.photoapplication.data.model.Option
+import kotlin.collections.ArrayList
 
-data class Option(val name: String, var isChecked : Boolean)
-
-class OptionsAdapter(val optionsList : List<String>) : RecyclerView.Adapter<OptionsAdapter.ItemViewHolder>() {
-    private val options : List<Option> = optionsList.map { Option(it, false) }
-
+class OptionsAdapter(var optionsList : ArrayList<Option>) : RecyclerView.Adapter<OptionsAdapter.ItemViewHolder>(), Filterable {
+    private val fullOptionsList = ArrayList(optionsList)
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -31,12 +32,41 @@ class OptionsAdapter(val optionsList : List<String>) : RecyclerView.Adapter<Opti
         lateinit var currentOption : Option
         lateinit var checkbox : CheckBox
         fun setData(position : Int) {
-            currentOption = options[position]
+            currentOption = optionsList[position]
             checkbox = itemView.findViewById(R.id.options_checkbox)
             checkbox.text = currentOption.name
             checkbox.isChecked = currentOption.isChecked
 
             checkbox.setOnCheckedChangeListener { view, isChecked -> currentOption.isChecked = isChecked}
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return optionsFilter
+    }
+
+    private val optionsFilter = object : Filter() {
+        override fun performFiltering(constraint: CharSequence): FilterResults {
+            val filteredList: MutableList<Option> = ArrayList()
+            if (constraint.isEmpty()) {
+                filteredList.addAll(fullOptionsList)
+            } else {
+                val predicate = constraint.toString().trim()
+                for (item in fullOptionsList) {
+                    if (item.name.contains(predicate, ignoreCase = true)) {
+                        filteredList.add(item)
+                    }
+                }
+            }
+            val results = FilterResults()
+            results.values = filteredList
+            return results
+        }
+
+        override fun publishResults(constraint: CharSequence, results: FilterResults) {
+            optionsList.clear()
+            optionsList.addAll(results.values as Collection<Option>)
+            notifyDataSetChanged()
         }
     }
 }

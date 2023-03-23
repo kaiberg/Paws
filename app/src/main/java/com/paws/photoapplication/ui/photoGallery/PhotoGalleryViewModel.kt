@@ -28,7 +28,7 @@ class PhotoGalleryViewModel @Inject constructor(private val repository: PhotoRep
 
     fun search() {
         viewModelScope.launch {
-            val allPhotos = repository.getPhotos().collect() {
+            repository.getPhotos().collect() {
                 val filteredPhotos = filterPhotos(it)
                 _photos.value = filteredPhotos
             }
@@ -37,7 +37,7 @@ class PhotoGalleryViewModel @Inject constructor(private val repository: PhotoRep
 
     private fun filterPhotos(photos: List<Photo>): List<Photo> {
         return photos.filter {
-            it.description.uppercase().contains(descriptionFilter.uppercase()) &&
+            it.description.contains(descriptionFilter, ignoreCase = true) &&
                     it.tags.containsAll(tagsFilter)
         }
     }

@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginStart="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
     tools:context=".ui.photoGallery.PhotoGalleryFragment">
 
     <androidx.recyclerview.widget.RecyclerView
@@ -15,18 +16,22 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:listitem="@layout/photo2_list_item">
 
+
     </androidx.recyclerview.widget.RecyclerView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addPhotoButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center"
+        android:layout_marginEnd="@dimen/fab_margin"
+        android:layout_marginBottom="16dp"
         android:background="@drawable/baseline_add_white_24"
         android:clickable="true"
         android:contentDescription="capture new photo"
-        android:visibility="gone"
         app:backgroundTint="#673AB7"
         app:backgroundTintMode="add"
+        app:layout_anchorGravity="bottom|end"
         app:rippleColor="#FFFFFF"
         app:srcCompat="@drawable/baseline_add_white_24" />
 
@@ -53,7 +58,7 @@
 
                 <com.google.android.material.chip.ChipGroup
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content" />
             </LinearLayout>
         </HorizontalScrollView>
 
@@ -77,7 +82,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:text="tags"></com.google.android.material.chip.Chip>
+                android:layoutDirection="rtl"
+                android:text="tags"
+                app:checkedIconEnabled="false"
+                app:checkedIconVisible="false"
+                app:chipIcon="@drawable/baseline_arrow_drop_down_black_24"
+                app:chipIconEnabled="true"
+                app:chipIconVisible="true"></com.google.android.material.chip.Chip>
         </com.google.android.material.chip.ChipGroup>
     </com.google.android.material.search.SearchView>
 

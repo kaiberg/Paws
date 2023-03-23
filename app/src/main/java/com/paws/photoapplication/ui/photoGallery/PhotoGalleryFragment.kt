@@ -1,22 +1,17 @@
 package com.paws.photoapplication.ui.photoGallery
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.paws.photoapplication.R
 import com.paws.photoapplication.databinding.FragmentPhotoGalleryBinding
-import com.paws.photoapplication.ui.optionsDialog.OptionsDialogFragment
+import com.paws.photoapplication.ui.optionsDialog.OptionsBottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -53,12 +48,10 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery){
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         binding.photoDisplay.layoutManager = layoutManager
 
-
         binding.addPhotoButton.setOnClickListener {
             val action = PhotoGalleryFragmentDirections.actionPhotoGalleryFragmentToPhotoCapture()
             findNavController().navigate(action)
         }
-
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.photos.collect {
@@ -77,13 +70,15 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery){
         }
 
         binding.tagsChip.setOnClickListener {
-            val dialog = OptionsDialogFragment()
-            dialog.show(requireFragmentManager(), "tag")
-            false
+            showOptionsDialog()
         }
-
         /*binding.searchView.setupWithSearchBar(binding.searchBar)*/
     }
+
+    fun showOptionsDialog() {
+        val bottomSheet = OptionsBottomSheetDialogFragment()
+        bottomSheet.show(parentFragmentManager, bottomSheet.tag)
+        }
 
     override fun onDestroy() {
         super.onDestroy()
