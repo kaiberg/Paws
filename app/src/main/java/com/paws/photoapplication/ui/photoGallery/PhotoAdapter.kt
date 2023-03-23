@@ -44,7 +44,7 @@ class PhotoAdapter(var photos: List<Photo>) : RecyclerView.Adapter<PhotoAdapter.
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoHolder {
-        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.photo2_list_item, parent, false)
+        val view: View = LayoutInflater.from(parent.context).inflate(R.layout.photo_list_item, parent, false)
         return PhotoHolder(view)
     }
 

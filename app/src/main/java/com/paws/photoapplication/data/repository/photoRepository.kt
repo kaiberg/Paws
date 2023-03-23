@@ -11,6 +11,13 @@ import javax.inject.Inject
 import javax.inject.Singleton
 import kotlin.random.Random
 
+
+@Singleton
+interface PhotoRepository {
+    fun getPhotos() : Flow<List<Photo>>
+    fun add(photo : Photo)
+}
+
 class  NolekPhotoRepository @Inject constructor(): PhotoRepository {
     override fun getPhotos(): Flow<List<Photo>> {
         TODO("Not yet implemented")
@@ -55,12 +62,4 @@ class  DogCEOPhotoRepository @Inject constructor(val dogApi: DogApiService): Pho
     override fun add(photo: Photo) {
         _photos.value += photo
     }
-
-
-}
-
-@Singleton
-interface PhotoRepository {
-    fun getPhotos() : Flow<List<Photo>>
-    fun add(photo : Photo)
 }
