@@ -1,5 +1,6 @@
 package com.paws.photoapplication.data.network
 
+import com.squareup.moshi.Json
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -17,8 +18,18 @@ const val STANDARD = "breeds"
 
 const val RANDOM = "random"
 
-data class BreedsResponse(val message: Array<Array<String>>, val status: String)
-data class PhotosResponse(val message: Array<String>, val status: String)
+data class BreedsResponse(
+    @Json(name = "message")
+    val message: Array<Array<String>>,
+    @Json(name = "status")
+    val status: String
+    )
+data class PhotosResponse(
+    @Json(name = "message")
+    val message: Array<String>,
+    @Json(name = "status")
+    val status: String
+    )
 
 
 interface DogApiService {
