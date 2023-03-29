@@ -1,5 +1,6 @@
 package com.paws.photoapplication.data.repository
 
+import android.util.Log.d
 import com.paws.photoapplication.data.model.Photo
 import com.paws.photoapplication.data.network.DogApiService
 import kotlinx.coroutines.CoroutineScope
@@ -40,10 +41,12 @@ class  DogCEOPhotoRepository @Inject constructor(val dogApi: DogApiService): Pho
         }
     }
 
+
     private suspend fun SeedData() {
         val sampleText = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
 
         val response = dogApi.GetPhotos(50)
+        d("http", "$response")
         val photoSet = response.message.map {
             val start = Random.nextInt(0, tags.size)
             val end = Random.nextInt(start, tags.size)
@@ -53,6 +56,7 @@ class  DogCEOPhotoRepository @Inject constructor(val dogApi: DogApiService): Pho
             Photo(it, tags.subList(start,end),sampleText.substring(sstart,send))
         }
 
+        d("photoset set to", "$photoSet")
         _photos.value = photoSet
     }
     override fun getPhotos(): Flow<List<Photo>> {

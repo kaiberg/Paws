@@ -40,8 +40,10 @@ class OptionsBottomSheetDialogFragment : BottomSheetDialogFragment(R.layout.frag
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val dialog = super.onCreateDialog(savedInstanceState)
+        super.setCancelable(true)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        return dialog    }
+        return dialog
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.options.observe(viewLifecycleOwner) {
@@ -71,12 +73,15 @@ class OptionsBottomSheetDialogFragment : BottomSheetDialogFragment(R.layout.frag
         })
 
         binding.editTextExit.setOnClickListener {
-            dismiss()
+            if(isCancelable)
+                dialog?.cancel()
         }
 
         binding.editTextApply.setOnClickListener {
             val selectedTags = viewModel.options.value!!.filter { it.isChecked }.map { it.name }
             galleryViewModel.tagsFilter = selectedTags
+            galleryViewModel.search()
+            galleryViewModel.closeSearchView()
             dismiss()
         }
     }

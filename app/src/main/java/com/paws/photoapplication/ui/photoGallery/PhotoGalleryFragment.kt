@@ -69,16 +69,33 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery){
             false
         }
 
+        viewModel.isSearchViewOpen.observe(viewLifecycleOwner) {
+            if(it==false)
+                binding.searchView.hide()
+        }
+
         binding.tagsChip.setOnClickListener {
             showOptionsDialog()
         }
-        /*binding.searchView.setupWithSearchBar(binding.searchBar)*/
+
+        binding.searchBar.setOnMenuItemClickListener {
+
+        when(it.itemId) {
+            R.id.action_tags_search -> {
+                showOptionsDialog()
+                true
+            }
+            else -> false
+        }
+        }
     }
 
     fun showOptionsDialog() {
         val bottomSheet = OptionsBottomSheetDialogFragment()
         bottomSheet.show(parentFragmentManager, bottomSheet.tag)
-        }
+    }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

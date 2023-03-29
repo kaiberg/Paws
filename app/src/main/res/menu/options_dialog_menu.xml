@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:icon="@drawable/baseline_close_white_24"
+        android:icon="@drawable/baseline_close_24"
         android:title="exit"
         app:showAsAction="ifRoom" />
     <item
@@ -12,7 +12,7 @@
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always"></item>
     <item
-        android:icon="@drawable/baseline_check_white_24"
+        android:icon="@drawable/baseline_check_24"
         android:title="apply"
         app:showAsAction="ifRoom|withText" />
 </menu>

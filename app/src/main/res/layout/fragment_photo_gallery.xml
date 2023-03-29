@@ -41,7 +41,9 @@
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="hint"></com.google.android.material.search.SearchBar>
+            android:hint="search"
+            app:menu="@menu/searchbar_gallery"
+            app:tintNavigationIcon="false"></com.google.android.material.search.SearchBar>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -64,7 +66,7 @@
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="hint"
+        android:hint="search description"
         app:layout_anchor="@id/search_bar">
         <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
 
@@ -82,7 +84,7 @@
                 android:text="tags"
                 app:checkedIconEnabled="false"
                 app:checkedIconVisible="false"
-                app:chipIcon="@drawable/baseline_arrow_drop_down_black_24"
+                app:chipIcon="@drawable/baseline_arrow_drop_down_24"
                 app:chipIconEnabled="true"
                 app:chipIconVisible="true"></com.google.android.material.chip.Chip>
         </com.google.android.material.chip.ChipGroup>

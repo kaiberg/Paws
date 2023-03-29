@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableStart="@drawable/baseline_close_white_24"
+            android:drawableStart="@drawable/baseline_close_24"
             android:drawablePadding="8dp"
             android:padding="8dp" />
 
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableEnd="@drawable/baseline_check_white_24"
+            android:drawableEnd="@drawable/baseline_check_24"
             android:drawablePadding="8dp"
             android:padding="8dp" />
 
