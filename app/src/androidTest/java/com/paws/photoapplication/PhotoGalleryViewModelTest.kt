@@ -44,8 +44,8 @@ class PhotoGalleryViewModelTest {
 
     @Test
     fun search_description() = runTest {
-        viewModel.descriptionFilter = photo1.description
-        viewModel.tagsFilter = listOf()
+        viewModel.setDescriptionFilter(photo1.description)
+        viewModel.setTagsFilter(listOf())
 
         viewModel.search()
         delay(100)
@@ -55,8 +55,8 @@ class PhotoGalleryViewModelTest {
 
     @Test
     fun search_tags() = runBlocking {
-        viewModel.descriptionFilter = ""
-        viewModel.tagsFilter = photo2.tags
+        viewModel.setDescriptionFilter("")
+        viewModel.setTagsFilter(photo2.tags)
         viewModel.search()
 
         delay(1000)
@@ -66,16 +66,16 @@ class PhotoGalleryViewModelTest {
 
     @Test
     fun searching_again_gets_the_original_list_of_images() = runBlocking {
-        viewModel.descriptionFilter = photo2.description
-        viewModel.tagsFilter = photo2.tags
+        viewModel.setDescriptionFilter(photo2.description)
+        viewModel.setTagsFilter(photo2.tags)
         viewModel.search()
 
         delay(1000)
 
         assertEquals(listOf(photo2), viewModel.photos.value)
 
-        viewModel.descriptionFilter = ""
-        viewModel.tagsFilter = emptyList()
+        viewModel.setDescriptionFilter("")
+        viewModel.setTagsFilter(emptyList())
         viewModel.search()
 
         delay(1000)

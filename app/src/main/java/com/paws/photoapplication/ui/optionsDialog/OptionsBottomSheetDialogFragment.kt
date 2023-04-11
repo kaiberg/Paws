@@ -47,7 +47,7 @@ class OptionsBottomSheetDialogFragment : BottomSheetDialogFragment(R.layout.frag
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel.options.observe(viewLifecycleOwner) {
-            for(item in it.filter { galleryViewModel.tagsFilter.contains(it.name) })
+            for(item in it.filter { galleryViewModel.tagsFilter.value!!.contains(it.name) })
                 item.isChecked = true
 
             adapter = OptionsAdapter(ArrayList(it))
@@ -79,9 +79,7 @@ class OptionsBottomSheetDialogFragment : BottomSheetDialogFragment(R.layout.frag
 
         binding.editTextApply.setOnClickListener {
             val selectedTags = viewModel.options.value!!.filter { it.isChecked }.map { it.name }
-            galleryViewModel.tagsFilter = selectedTags
-            galleryViewModel.search()
-            galleryViewModel.closeSearchView()
+            galleryViewModel.setTagsFilter(selectedTags)
             dismiss()
         }
     }

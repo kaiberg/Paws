@@ -5,6 +5,7 @@ import android.view.*
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.paws.photoapplication.R
@@ -40,7 +41,11 @@ class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.inflateMenu(R.menu.photo_view_menu)
+
+        binding.toolbar.setNavigationOnClickListener {
+            val action = PhotoViewFragmentDirections.actionPhotoViewFragmentSelf()
+            findNavController().navigate(action)
+        }
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.action_last -> {

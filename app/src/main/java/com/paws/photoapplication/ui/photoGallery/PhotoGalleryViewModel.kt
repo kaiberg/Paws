@@ -20,19 +20,21 @@ class PhotoGalleryViewModel @Inject constructor(private val repository: PhotoRep
     private val _photos: MutableStateFlow<List<Photo>> = MutableStateFlow(emptyList())
     val photos: StateFlow<List<Photo>> = _photos.asStateFlow()
 
-    private val _isSearchViewOpen = MutableLiveData<Boolean>()
-    val isSearchViewOpen : LiveData<Boolean> =_isSearchViewOpen
-
-    var descriptionFilter: String = ""
-    var tagsFilter: List<String> = emptyList()
+    private var _descriptionFilter: MutableLiveData<String> = MutableLiveData("")
+    var descriptionFilter: LiveData<String> = _descriptionFilter
+    private var _tagsFilter: MutableLiveData<List<String>> = MutableLiveData(emptyList())
+    var tagsFilter: LiveData<List<String>> = _tagsFilter
 
     init {
-        viewModelScope.launch {
-            repository.getPhotos().collect { photos ->
-                val filteredPhotos = filterPhotos(photos)
-                _photos.value = filteredPhotos
-            }
-        }
+        search()
+    }
+
+    fun setDescriptionFilter(filter: String) {
+        _descriptionFilter.value = filter
+    }
+
+    fun setTagsFilter(filter: List<String>) {
+        _tagsFilter.value = filter
     }
 
     fun search() {
@@ -46,12 +48,10 @@ class PhotoGalleryViewModel @Inject constructor(private val repository: PhotoRep
 
     private fun filterPhotos(photos: List<Photo>): List<Photo> {
         return photos.filter {
-            it.description.contains(descriptionFilter, ignoreCase = true) &&
-                    it.tags.containsAll(tagsFilter)
+            it.description.contains(_descriptionFilter.value!!, ignoreCase = true) &&
+                    it.tags.containsAll(_tagsFilter.value!!)
         }
     }
 
-    fun closeSearchView() {
-        _isSearchViewOpen.value = false
-    }
+
 }

@@ -45,10 +45,11 @@
 
         <EditText
             android:id="@+id/editTextOptionFilter"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
+            android:hint="search for tags"
             android:inputType="textPersonName"
             android:paddingLeft="8dp" />
     </LinearLayout>

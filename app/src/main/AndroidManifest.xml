@@ -21,6 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="33">
+        <provider android:name="com.paws.photoapplication.ui.photoGallery.SearchDescriptionSuggestionProvider"
+            android:authorities="com.paws.SearchDescriptionSuggestionProvider" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

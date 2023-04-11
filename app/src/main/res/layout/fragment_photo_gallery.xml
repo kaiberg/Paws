@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.paws.photoapplication.ui.photoGallery.PhotoGalleryViewModel" />
+    </data>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -19,16 +25,19 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addPhotoButton"
+        style="?attr/floatingActionButtonPrimaryStyle"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom|end"
         android:layout_marginEnd="@dimen/fab_margin"
         android:layout_marginBottom="16dp"
         android:background="@drawable/baseline_add_white_24"
         android:clickable="true"
         android:contentDescription="capture new photo"
+        android:minHeight="9dp"
+        android:padding="16dp"
         app:backgroundTintMode="add"
-        app:layout_anchorGravity="bottom|end"
+        app:layout_anchorGravity="bottom"
         app:srcCompat="@drawable/baseline_add_white_24" />
 
     <com.google.android.material.appbar.AppBarLayout
@@ -41,9 +50,10 @@
             android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="search"
+            android:hint="search in photos"
             app:menu="@menu/searchbar_gallery"
-            app:tintNavigationIcon="false"></com.google.android.material.search.SearchBar>
+            app:tintNavigationIcon="false"
+            android:text="@{viewModel.descriptionFilter}"/>
 
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -66,29 +76,46 @@
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:hint="search description"
-        app:layout_anchor="@id/search_bar">
+        android:hint="search in description"
+        app:layout_anchor="@id/search_bar"
+        android:text="@{viewModel.descriptionFilter}"
+        android:searchSuggestAuthority="com.paws.SearchDescriptionSuggestionProvider"
+        android:searchSuggestSelection=" ?">
         <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
 
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/tags_chip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:layoutDirection="rtl"
-                android:text="tags"
-                app:checkedIconEnabled="false"
-                app:checkedIconVisible="false"
-                app:chipIcon="@drawable/baseline_arrow_drop_down_24"
-                app:chipIconEnabled="true"
-                app:chipIconVisible="true"></com.google.android.material.chip.Chip>
-        </com.google.android.material.chip.ChipGroup>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp">
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/tags_chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:layoutDirection="rtl"
+                        android:text="tags"
+                        app:checkedIconEnabled="false"
+                        app:checkedIconVisible="false"
+                        app:chipIcon="@drawable/baseline_arrow_drop_down_24"
+                        app:chipIconEnabled="true"
+                        app:chipIconVisible="true"></com.google.android.material.chip.Chip>
+                </com.google.android.material.chip.ChipGroup>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/sv_suggestions"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
     </com.google.android.material.search.SearchView>
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

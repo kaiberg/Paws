@@ -42,6 +42,10 @@
         <argument
             android:name="position"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_photoViewFragment_self"
+            app:popUpTo="@id/photoViewFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/photoCapture"
