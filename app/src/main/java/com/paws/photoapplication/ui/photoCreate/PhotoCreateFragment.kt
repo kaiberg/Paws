@@ -1,9 +1,9 @@
 package com.paws.photoapplication.ui.photoCreate
 
+import android.graphics.Rect
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
@@ -14,6 +14,7 @@ import coil.load
 import com.paws.photoapplication.R
 import com.paws.photoapplication.databinding.FragmentPhotoCreateBinding
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @BindingAdapter("imageUrl")
 fun loadImage(view : ImageView?, imageUrl: String?) {
@@ -27,7 +28,7 @@ fun loadImage(view : ImageView?, imageUrl: String?) {
 
 
 @AndroidEntryPoint
-class PhotoCreateFragment : Fragment(R.layout.fragment_photo_create) {
+class PhotoCreateFragment() : Fragment(R.layout.fragment_photo_create) {
     private var _binding : FragmentPhotoCreateBinding? = null
     private val binding
         get() = _binding!!
@@ -48,17 +49,8 @@ class PhotoCreateFragment : Fragment(R.layout.fragment_photo_create) {
         viewModel.photoURL = args.imageUri
         loadImage(binding.selectedImage, args.imageUri)
 
-        binding.createButton.setOnClickListener {
-            viewModel.createPhoto()
-
-            val action =
-                PhotoCreateFragmentDirections.actionPhotoCreateFragmentToPhotoGalleryFragment()
-            findNavController().navigate(action)
-        }
-
         binding.changeButton.setOnClickListener {
-            val action = PhotoCreateFragmentDirections.actionPhotoCreateFragmentToPhotoCapture()
-            findNavController().navigate(action)
+            changePhoto()
         }
 
         binding.tags.onChipAdded = { text : String ->
@@ -67,6 +59,58 @@ class PhotoCreateFragment : Fragment(R.layout.fragment_photo_create) {
 
 
         return binding.root
+    }
+
+    private fun changePhoto() {
+        val action = PhotoCreateFragmentDirections.actionPhotoCreateFragmentToPhotoCapture()
+        findNavController().navigate(action)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.toolbar.setNavigationOnClickListener {
+            val action = PhotoCreateFragmentDirections.actionPhotoCreateFragmentSelf()
+            findNavController().navigate(action)
+        }
+
+        val rootView = binding.root
+        rootView.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                val r = Rect()
+                rootView.getWindowVisibleDisplayFrame(r)
+                val screenHeight = rootView.height
+                val keyboardHeight = screenHeight - r.bottom
+                if (keyboardHeight > screenHeight * 0.15) { // keyboard is open
+                } else { // keyboard is closed
+                }
+            }
+        })
+
+
+        // appbar closed
+        binding.createAppbarLayout.addOnOffsetChangedListener({ appBarLayout, verticalOffset ->
+            val mi = binding.toolbar.menu.findItem(R.id.action_change_picture)
+            val isAppBarClosed = (verticalOffset == -binding.createColToolbarLayout.height + binding.toolbar.height)
+                mi.isVisible = isAppBarClosed
+        })
+
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.action_create_picture -> {
+                    viewModel.createPhoto()
+
+                    val action =
+                        PhotoCreateFragmentDirections.actionPhotoCreateFragmentToPhotoGalleryFragment()
+                    findNavController().navigate(action)
+                    true
+                }
+                R.id.action_change_picture -> {
+                    changePhoto()
+                    true
+                }
+                else -> true
+            }
+        }
     }
 
 }

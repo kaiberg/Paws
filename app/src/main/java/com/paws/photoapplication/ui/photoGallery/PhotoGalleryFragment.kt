@@ -2,6 +2,8 @@ package com.paws.photoapplication.ui.photoGallery
 
 import android.annotation.SuppressLint
 import android.app.SearchManager
+import android.app.SearchManager.SUGGEST_COLUMN_QUERY
+import android.app.SearchManager.SUGGEST_COLUMN_TEXT_1
 import android.content.ContentResolver
 import android.net.Uri
 import android.os.Bundle
@@ -69,7 +71,6 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery) {
             viewModel.photos.collect {
                 photoAdapter.photos = it
                 photoAdapter.notifyDataSetChanged()
-
             }
         }
 
@@ -100,7 +101,10 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery) {
 
         uriBuilder.appendPath(SearchManager.SUGGEST_URI_PATH_QUERY)
 
-        val selection = " ?"
+        val selection = "$SUGGEST_COLUMN_TEXT_1 IN (SELECT DISTINCT $SUGGEST_COLUMN_TEXT_1" +
+                " FROM suggestions" +
+                " ORDER BY $SUGGEST_COLUMN_QUERY" +
+                " DESC LIMIT 10)"
         val selArgs = arrayOf("")
 
         val uri = uriBuilder.build()

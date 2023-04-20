@@ -7,21 +7,23 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/i_input_v"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:hint="@string/tags_hint">
+        app:layout_constraintTop_toTopOf="parent">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/i_input_e"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:completionThreshold="1"
+            android:hint="@string/tags_hint"
             android:gravity="bottom"
             android:paddingBottom="22dp"
-            android:layout_height="match_parent" />
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.chip.ChipGroup

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ChipInputView">
+        <attr name="LabelTextHint" format="string" />
+        <attr name="EditTextHint" format="string" />
+    </declare-styleable>
+</resources>

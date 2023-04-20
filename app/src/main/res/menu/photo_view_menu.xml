@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/action_last"
+        android:id="@+id/action_change_picture"
         android:icon="@drawable/baseline_arrow_back_white_24"
         android:title="Last"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/action_next"
+        android:id="@+id/action_create_picture"
         android:icon="@drawable/baseline_arrow_forward_white_24"
         android:title="Next"
         app:showAsAction="ifRoom" />

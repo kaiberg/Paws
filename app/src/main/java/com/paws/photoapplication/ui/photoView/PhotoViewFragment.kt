@@ -48,11 +48,11 @@ class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
         }
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
-                R.id.action_last -> {
+                R.id.action_change_picture -> {
                     position -= 1
                     true
                 }
-                R.id.action_next -> {
+                R.id.action_create_picture -> {
                     position += 1
                     true
                 }
@@ -63,7 +63,7 @@ class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
     }
 
     private fun resetMenu(menu: Menu) {
-        var menuItem = menu.findItem(R.id.action_next)
+        var menuItem = menu.findItem(R.id.action_create_picture)
         if (menuItem != null) {
             if (!isInRange(position + 1)) {
                 disableMenuItem(menuItem)
@@ -72,7 +72,7 @@ class PhotoViewFragment : Fragment(R.layout.fragment_photo_view) {
                 enableMenuItem(menuItem, R.drawable.baseline_arrow_forward_white_24)
         }
 
-        menuItem = menu.findItem(R.id.action_last)
+        menuItem = menu.findItem(R.id.action_change_picture)
         if (menuItem != null) {
             if (!isInRange(position - 1)) {
                 disableMenuItem(menuItem)

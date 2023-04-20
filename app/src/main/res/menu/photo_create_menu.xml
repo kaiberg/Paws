@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_change_picture"
+        android:icon="@drawable/baseline_photo_library_white_24"
+        android:title="CHANGE"
+        android:tooltipText="Change Photo"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/action_create_picture"
+        android:icon="@drawable/baseline_send_white_24"
+        android:title="Create"
+        app:showAsAction="always" />
+</menu>

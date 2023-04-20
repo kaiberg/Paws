@@ -18,6 +18,10 @@
             app:destination="@id/photoCapture" />
         <argument
             android:name="imageUri" />
+        <action
+            android:id="@+id/action_photoCreateFragment_self"
+            app:popUpTo="@id/photoCreateFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/photoGalleryFragment"
