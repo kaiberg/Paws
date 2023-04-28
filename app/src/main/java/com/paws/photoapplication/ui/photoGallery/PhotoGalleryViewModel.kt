@@ -30,11 +30,11 @@ class PhotoGalleryViewModel @Inject constructor(private val repository: PhotoRep
     }
 
     fun setDescriptionFilter(filter: String) {
-        _descriptionFilter.value = filter
+        _descriptionFilter.postValue(filter)
     }
 
     fun setTagsFilter(filter: List<String>) {
-        _tagsFilter.value = filter
+        _tagsFilter.postValue(filter)
     }
 
     fun search() {

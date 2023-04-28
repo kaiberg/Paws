@@ -1,4 +1,4 @@
-package com.paws.photoapplication.data.dependencyInjection
+package com.paws.photoapplication.data.di
 
 import com.paws.photoapplication.data.network.BASE_URL
 import com.paws.photoapplication.data.network.DogApiService

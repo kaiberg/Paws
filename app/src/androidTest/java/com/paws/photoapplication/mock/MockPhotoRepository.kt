@@ -1,4 +1,4 @@
-package com.paws.photoapplication
+package com.paws.photoapplication.mock
 
 import com.paws.photoapplication.data.model.Photo
 import com.paws.photoapplication.data.repository.PhotoRepository

@@ -1,6 +1,7 @@
-package com.paws.photoapplication
+package com.paws.photoapplication.unit
 
 import com.paws.photoapplication.data.model.Photo
+import com.paws.photoapplication.mock.MockPhotoRepository
 import com.paws.photoapplication.ui.photoGallery.PhotoGalleryViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -9,7 +10,7 @@ import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Test
 
-class PhotoGalleryViewModelTest {
+class PhotoGalleryViewModel {
     private lateinit var repository: MockPhotoRepository
     private lateinit var viewModel: PhotoGalleryViewModel
     private lateinit var photo1: Photo

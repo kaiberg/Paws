@@ -1,10 +1,10 @@
 package com.paws.photoapplication
 
 import com.paws.photoapplication.data.model.Photo
+import com.paws.photoapplication.mock.MockPhotoRepository
 import com.paws.photoapplication.ui.photoCreate.PhotoCreateViewModel
 import com.paws.photoapplication.ui.photoGallery.PhotoGalleryViewModel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.*
 import org.junit.Before

@@ -1,21 +1,17 @@
-package com.paws.photoapplication
+package com.paws.photoapplication.unit
 
 import com.paws.photoapplication.data.model.Photo
+import com.paws.photoapplication.mock.MockPhotoRepository
 import com.paws.photoapplication.ui.photoCreate.PhotoCreateViewModel
 import com.paws.photoapplication.ui.photoGallery.PhotoGalleryViewModel
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.toList
-import kotlinx.coroutines.launch
 import org.junit.Assert.*
 
 
-class PhotoCreateViewModelTest {
+class PhotoCreateViewModel {
     private lateinit var repository: MockPhotoRepository
     private lateinit var galleryViewModel: PhotoGalleryViewModel
     private lateinit var createViewModel: PhotoCreateViewModel
