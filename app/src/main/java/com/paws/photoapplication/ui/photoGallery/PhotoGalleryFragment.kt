@@ -1,13 +1,7 @@
 package com.paws.photoapplication.ui.photoGallery
 
 import android.annotation.SuppressLint
-import android.app.SearchManager
-import android.app.SearchManager.SUGGEST_COLUMN_QUERY
-import android.app.SearchManager.SUGGEST_COLUMN_TEXT_1
-import android.content.ContentResolver
-import android.net.Uri
 import android.os.Bundle
-import android.provider.SearchRecentSuggestions
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -75,7 +69,17 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery) {
         }
 
         viewModel.tagsFilter.observe(viewLifecycleOwner) {
+            viewModel.setDescriptionFilter(binding.searchView.editText.text.toString())
             hideSearchView()
+        }
+
+        viewModel.descriptionFilter.observe(viewLifecycleOwner) {
+            hideSearchView()
+        }
+
+        viewModel.suggestions.observe(viewLifecycleOwner) {
+            suggestionAdapter.suggestions = it
+            suggestionAdapter.notifyDataSetChanged()
         }
 
         binding.tagsChip.setOnClickListener {
@@ -93,44 +97,16 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery) {
             }
         }
 
-
-        val suggestionList = ArrayList<String>()
-        val uriBuilder = Uri.Builder()
-            .scheme(ContentResolver.SCHEME_CONTENT)
-            .authority(SearchDescriptionSuggestionProvider.AUTHORITY)
-
-        uriBuilder.appendPath(SearchManager.SUGGEST_URI_PATH_QUERY)
-
-        val selection = "$SUGGEST_COLUMN_TEXT_1 IN (SELECT DISTINCT $SUGGEST_COLUMN_TEXT_1" +
-                " FROM suggestions" +
-                " ORDER BY $SUGGEST_COLUMN_QUERY" +
-                " DESC LIMIT 10)"
-        val selArgs = arrayOf("")
-
-        val uri = uriBuilder.build()
-        val cursor = requireActivity().contentResolver?.query(uri, null, selection, selArgs, null)
-
-        if (cursor != null && cursor.moveToFirst()) {
-            do {
-                val suggestion = cursor.getString(cursor.getColumnIndex(SearchManager.SUGGEST_COLUMN_TEXT_1))
-                suggestionList.add(suggestion)
-            } while (cursor.moveToNext())
-        }
-
-        cursor?.close()
-
-        suggestionAdapter = SuggestionAdapter("",suggestionList)
+        suggestionAdapter = SuggestionAdapter("", emptyList())
         suggestionAdapter.onItemClick = {
             binding.searchView.editText.setText(it)
-            hideSearchView()
+            viewModel.setDescriptionFilter(it)
         }
         binding.svSuggestions.adapter = suggestionAdapter
         binding.svSuggestions.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-
-
-        binding.searchView.editText.setOnEditorActionListener { textView, i, keyEvent ->
-            hideSearchView()
+        binding.searchView.editText.setOnEditorActionListener { tv, _, _ ->
+            viewModel.setDescriptionFilter(tv.text.toString())
             false
         }
 
@@ -143,28 +119,14 @@ class PhotoGalleryFragment : Fragment(R.layout.fragment_photo_gallery) {
 
             override fun afterTextChanged(p0: Editable?) {
                 suggestionAdapter.currentSearch = p0.toString()
-                suggestionAdapter.notifyDataSetChanged()
                 suggestionAdapter.filter.filter(p0.toString())
             }
     })
     }
 
     private fun hideSearchView() {
-        val descriptionFilter = binding.searchView.editText.text.toString()
-        viewModel.setDescriptionFilter(descriptionFilter)
         binding.searchView.hide()
         viewModel.search()
-
-        // add filter to query history
-        if(descriptionFilter == "")
-            return
-
-        SearchRecentSuggestions(
-            requireContext(),
-            SearchDescriptionSuggestionProvider.AUTHORITY,
-            SearchDescriptionSuggestionProvider.MODE
-        )
-            .saveRecentQuery(descriptionFilter, null)
     }
 
     fun showOptionsDialog() {

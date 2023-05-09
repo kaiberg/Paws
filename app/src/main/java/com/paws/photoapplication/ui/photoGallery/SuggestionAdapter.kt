@@ -10,8 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.paws.photoapplication.R
 
-class SuggestionAdapter(var currentSearch : String, var suggestions : ArrayList<String>) : RecyclerView.Adapter<SuggestionAdapter.ViewHolder>(), Filterable {
-    var fullSuggestionList = ArrayList(suggestions)
+class SuggestionAdapter(var currentSearch : String, var suggestions : List<String>) : RecyclerView.Adapter<SuggestionAdapter.ViewHolder>(), Filterable {
+    var SuggestionFilteredList = ArrayList(suggestions)
 
     var onItemClick: ((text : String) -> Unit)? = null
 
@@ -39,7 +39,7 @@ class SuggestionAdapter(var currentSearch : String, var suggestions : ArrayList<
 
     override fun getItemCount(): Int {
         val isCurrentSearchEmpty = if(currentSearch.isEmpty()) 0 else 1
-        return suggestions.count() + isCurrentSearchEmpty
+        return SuggestionFilteredList.size + isCurrentSearchEmpty
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -51,7 +51,7 @@ class SuggestionAdapter(var currentSearch : String, var suggestions : ArrayList<
                 return
             }
         }
-        holder.SetData(suggestions[pos], suggestions[pos], R.drawable.baseline_schedule_24)
+        holder.SetData(SuggestionFilteredList[pos], SuggestionFilteredList[pos], R.drawable.baseline_schedule_24)
     }
 
     override fun getFilter(): Filter {
@@ -62,13 +62,13 @@ class SuggestionAdapter(var currentSearch : String, var suggestions : ArrayList<
         override fun performFiltering(constraint: CharSequence): FilterResults {
             val filteredList: MutableList<String> = ArrayList()
             if (constraint.isEmpty()) {
-                filteredList.addAll(fullSuggestionList)
+                filteredList.addAll(suggestions)
             } else {
                 val predicate = constraint.toString().trim()
 /*                if(!currentSearch.contains(predicate, ignoreCase = true))
                     currentSearch = ""*/
 
-                for (item in fullSuggestionList) {
+                for (item in suggestions) {
                     if (item.contains(predicate, ignoreCase = true)) {
                         filteredList.add(item)
                     }
@@ -80,8 +80,8 @@ class SuggestionAdapter(var currentSearch : String, var suggestions : ArrayList<
         }
 
         override fun publishResults(constraint: CharSequence, results: FilterResults) {
-            suggestions.clear()
-            suggestions.addAll(results.values as Collection<String>)
+            SuggestionFilteredList.clear()
+            SuggestionFilteredList.addAll(results.values as Collection<String>)
             notifyDataSetChanged()
         }
     }

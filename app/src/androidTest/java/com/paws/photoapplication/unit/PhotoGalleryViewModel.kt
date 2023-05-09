@@ -2,6 +2,7 @@ package com.paws.photoapplication.unit
 
 import com.paws.photoapplication.data.model.Photo
 import com.paws.photoapplication.mock.MockPhotoRepository
+import com.paws.photoapplication.mock.MockSuggestionRepository
 import com.paws.photoapplication.ui.photoGallery.PhotoGalleryViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -11,7 +12,8 @@ import org.junit.Before
 import org.junit.Test
 
 class PhotoGalleryViewModel {
-    private lateinit var repository: MockPhotoRepository
+    private lateinit var mockPhotoRepository: MockPhotoRepository
+    private lateinit var mockSuggestionRepository: MockSuggestionRepository
     private lateinit var viewModel: PhotoGalleryViewModel
     private lateinit var photo1: Photo
     private lateinit var photo2: Photo
@@ -20,13 +22,14 @@ class PhotoGalleryViewModel {
 
     @Before
     fun setUp() {
-        repository = MockPhotoRepository()
-        viewModel = PhotoGalleryViewModel(repository)
+        mockPhotoRepository = MockPhotoRepository()
+        mockSuggestionRepository = MockSuggestionRepository()
+        viewModel = PhotoGalleryViewModel(mockPhotoRepository,mockSuggestionRepository)
         photo1 = Photo("test_path1", listOf("tag1"), "test_description1")
         photo2 = Photo("test_path2", listOf("tag2"), "test_description2")
 
-        repository.add(photo1)
-        repository.add(photo2)
+        mockPhotoRepository.add(photo1)
+        mockPhotoRepository.add(photo2)
 
         photoList = ArrayList()
         photoList.add(photo1)
@@ -36,7 +39,7 @@ class PhotoGalleryViewModel {
     @Test
     fun adding_a_photo_to_repository_updates_viewmodel() = runTest {
         val photo = Photo("path", listOf("tag1","tag2","tag3"),"description")
-        repository.add(photo)
+        mockPhotoRepository.add(photo)
 
         delay(1000)
 

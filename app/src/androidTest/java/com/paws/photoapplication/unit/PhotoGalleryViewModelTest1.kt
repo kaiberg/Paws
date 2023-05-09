@@ -2,6 +2,7 @@ package com.paws.photoapplication
 
 import com.paws.photoapplication.data.model.Photo
 import com.paws.photoapplication.mock.MockPhotoRepository
+import com.paws.photoapplication.mock.MockSuggestionRepository
 import com.paws.photoapplication.ui.photoCreate.PhotoCreateViewModel
 import com.paws.photoapplication.ui.photoGallery.PhotoGalleryViewModel
 import kotlinx.coroutines.delay
@@ -12,6 +13,7 @@ import org.junit.Test
 
 class PhotoGalleryViewModelTest1 {
     private lateinit var repository: MockPhotoRepository
+    private lateinit var mockSuggestionRepository: MockSuggestionRepository
     private lateinit var galleryViewModel: PhotoGalleryViewModel
     private lateinit var createViewModel: PhotoCreateViewModel
 
@@ -19,7 +21,8 @@ class PhotoGalleryViewModelTest1 {
     @Before
     fun setUp() {
         repository = MockPhotoRepository()
-        galleryViewModel = PhotoGalleryViewModel(repository)
+        mockSuggestionRepository = MockSuggestionRepository()
+        galleryViewModel = PhotoGalleryViewModel(repository, mockSuggestionRepository)
         createViewModel = PhotoCreateViewModel(repository)
     }
 
